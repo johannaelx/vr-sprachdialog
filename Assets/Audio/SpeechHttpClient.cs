@@ -2,11 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-""" 
- SpeechHttpClient
- 
- Client for sending recorded audio to a speech backend via HTTP.
-"""
+/// SpeechHttpClient
+/// Component for sending recorded audio to a speech backend via HTTP.
 
 public class SpeechHttpClient : MonoBehaviour
 {

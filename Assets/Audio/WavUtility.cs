@@ -2,11 +2,8 @@ using System;
 using System.IO;
 using UnityEngine;
 
-"""
- WavUtility
- 
- Utility class for converting AudioClip to WAV byte array.
-"""
+/// WavUtility
+/// Utility class for converting AudioClip to WAV byte array.
 
 public static class WavUtility
 {

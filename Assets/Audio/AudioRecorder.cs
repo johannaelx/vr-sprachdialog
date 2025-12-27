@@ -1,10 +1,7 @@
 using UnityEngine;
 
-""" 
- AudioRecorder
- 
- Component for recording audio from the microphone.
-"""
+/// AudioRecorder
+/// Component for recording audio from the microphone.  
 
 public class AudioRecorder : MonoBehaviour
 {

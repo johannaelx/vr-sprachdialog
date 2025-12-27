@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-""" 
- PushToTalkInput
- 
- Component for handling push-to-talk input.
-"""
+/// PushToTalkInput
+/// Component for handling push-to-talk input and coordinating audio recording and sending.
 
 public class PushToTalkInput : MonoBehaviour
 {
