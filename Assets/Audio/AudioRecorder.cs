@@ -1,5 +1,11 @@
 using UnityEngine;
 
+""" 
+ AudioRecorder
+ 
+ Component for recording audio from the microphone.
+"""
+
 public class AudioRecorder : MonoBehaviour
 {
     public int sampleRate = 16000;
@@ -23,20 +29,16 @@ public class AudioRecorder : MonoBehaviour
         Debug.Log("Recording started.");
     }
 
-    public float[] StopRecording()
+    public AudioClip StopRecording()
     {
         if (!isRecording) return null;
 
-        int sampleCount = Microphone.GetPosition(null);
         Microphone.End(null);
-
-        float[] samples = new float[sampleCount];
-        recordingClip.GetData(samples, 0);
-
         isRecording = false;
+
         Debug.Log("Recording stopped");
 
-        return samples;
+        return recordingClip;
     }
 
 

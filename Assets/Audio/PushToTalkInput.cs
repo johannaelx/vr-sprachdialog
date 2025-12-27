@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+""" 
+ PushToTalkInput
+ 
+ Component for handling push-to-talk input.
+"""
+
 public class PushToTalkInput : MonoBehaviour
 {
     public AudioRecorder recorder;
-
-    private bool isRecording = false;
+    public SpeechHttpClient speechClient;
 
     void Update()
     {
@@ -16,23 +21,22 @@ public class PushToTalkInput : MonoBehaviour
             return;
         }
 
-        if (Keyboard.current.spaceKey.isPressed)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             recorder.StartRecording();
-            isRecording = true;
         }
 
-        if (Keyboard.current.spaceKey.wasReleasedThisFrame && isRecording)
+        if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
-            float[] audioSamples = recorder.StopRecording();
-            isRecording = false;
+            AudioClip clip = recorder.StopRecording();
 
-            if (audioSamples != null && audioSamples.Length > 0)
+            if (clip != null && speechClient != null)
             {
-                float duration = audioSamples.Length / (float)recorder.sampleRate;
-                Debug.Log($"Audio duration: {duration:F2} seconds");
-
-                //TODO: Send audioSamples to backend
+                speechClient.SendAudio(clip);
+            }
+            else
+            {
+                Debug.LogError("SpeechClient or AudioClip missing.");
             }
         }
     }
