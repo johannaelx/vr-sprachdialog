@@ -5583,6 +5583,7 @@ GameObject:
   - component: {fileID: 1334367523}
   - component: {fileID: 1334367522}
   - component: {fileID: 1334367521}
+  - component: {fileID: 1334367524}
   m_Layer: 0
   m_Name: SpeechManager
   m_TagString: Untagged
@@ -5603,6 +5604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushToTalkInput
   recorder: {fileID: 1334367522}
+  speechClient: {fileID: 1334367524}
 --- !u!114 &1334367522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5632,6 +5634,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1334367524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334367520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55073be1abb3f514e800e35866613f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpeechHttpClient
+  endpoint: http://localhost:8000/conversation
 --- !u!1 &1364738264
 GameObject:
   m_ObjectHideFlags: 0
