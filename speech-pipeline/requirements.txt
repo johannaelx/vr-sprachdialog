@@ -1,5 +1,7 @@
 openai-whisper
-sounddevice
 numpy
-webrtcvad
 torch
+soundfile
+fastapi
+uvicorn
+python-multipart
