@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 
-from backend.asr_core import transcribe_wav_bytes
+from app.asr.whisper import transcribe_wav_bytes
 
 app = FastAPI(title="VR Speech Backend")
 
