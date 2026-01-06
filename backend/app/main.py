@@ -5,6 +5,10 @@ from app.asr.whisper import transcribe_wav_bytes
 
 app = FastAPI(title="VR Speech Backend")
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.post("/conversation")
 async def conversation(audio: UploadFile = File(...)):
     if audio.content_type not in ("audio/wav", "audio/x-wav"):
