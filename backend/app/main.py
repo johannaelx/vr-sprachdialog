@@ -1,11 +1,15 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 
-from backend.asr_core import transcribe_wav_bytes
+from app.asr.whisper import transcribe_wav_bytes
 from backend.llm import language_tutor
 from backend.piper import speaker
 
 app = FastAPI(title="VR Speech Backend")
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 # =====================================================
 # Audio Pipeline mit Verbindung zum HTTP Endpoint
