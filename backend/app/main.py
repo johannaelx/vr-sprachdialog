@@ -2,8 +2,8 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 
 from app.asr.whisper import transcribe_wav_bytes
-from backend.llm import language_tutor
-from backend.piper import speaker
+from app.llm.openai_local import language_tutor
+from app.tts.piper import speaker
 
 app = FastAPI(title="VR Speech Backend")
 
