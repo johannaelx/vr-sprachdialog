@@ -1,21 +1,33 @@
 using UnityEngine;
 
-public class doorScript : MonoBehaviour
+interface IInteractable
 {
-    [SerializeField] GameObject doorHinge;
-    [SerializeField] bool doorIsOpen;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public void Interact();
+}
+public class Interactor : MonoBehaviour
+{
+    public Transform InteractorSource;
+    public float InteractorRange;
+
     void Start()
     {
-        doorIsOpen = false;
+      InteractorRange = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
-        void OpenDoor()
-        {
-            doorHinge.GetComponent<Animator>().Play("openDoor");
+       if (Input.GetKeyDown(KeyCode.E))
+       {
+        Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
+        if (Physics.Raycast(r, out RaycastHit hitInfo, InteractorRange))
+            {
+                Debug.Log($"Raycast hit: {hitInfo.collider.gameObject.name}");
+                if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
+                {
+                    interactObj.Interact();
+                }
+            }
         }
     }
 }
