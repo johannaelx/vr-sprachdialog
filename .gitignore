@@ -115,5 +115,5 @@ __pycache__/
 .env
 
 # Piper TTS models
-models/piper/*.onnx
-models/piper/*.json
+backend/app/tts/models/*.onnx
+backend/app/tts/models/*.json
