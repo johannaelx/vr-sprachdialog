@@ -1,6 +1,27 @@
 import wave
-from piper import PiperVoice
-from piper import SynthesisConfig
+from pathlib import Path
+from piper import PiperVoice, SynthesisConfig
+
+# =====================================================
+# Pfade
+# =====================================================
+BASE_DIR = Path(__file__).resolve().parents[2]  # backend/
+MODEL_PATH = BASE_DIR / "models" / "en_US-lessac-medium.onnx"
+
+# =====================================================
+# Lazy Loading der Stimme (sehr wichtig!)
+# =====================================================
+_voice = None
+
+def get_voice() -> PiperVoice:
+    global _voice
+    if _voice is None:
+        if not MODEL_PATH.exists():
+            raise FileNotFoundError(
+                f"Piper model not found at: {MODEL_PATH}"
+            )
+        _voice = PiperVoice.load(str(MODEL_PATH))
+    return _voice
 
 # =====================================================
 #Konfigurationen für die Audioerzeugung
@@ -16,10 +37,12 @@ syn_config = SynthesisConfig(
 # =====================================================
 #Lädt das TTS Modell 
 # =====================================================
-voice = PiperVoice.load("/path/to/en_US-lessac-medium.onnx") #Pfad muss ggf angepasst werden
-
 def speaker(text_input: str, output_path: str = "output.wav") -> str:
+    voice = get_voice()
     with wave.open(output_path, "wb") as wav_file:
-        voice.synthesize_wav(text_input, wav_file, syn_config=syn_config)
-
+        voice.synthesize_wav(
+            text_input,
+            wav_file,
+            syn_config=syn_config
+        )
     return output_path

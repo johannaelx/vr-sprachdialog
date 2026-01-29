@@ -1,9 +1,14 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 
 from app.asr.whisper import transcribe_wav_bytes
 from app.llm.openai_api import language_tutor
 from app.tts.piper import speaker
+
+import traceback
 
 app = FastAPI(title="VR Speech Backend")
 
@@ -49,6 +54,7 @@ async def conversation(audio: UploadFile = File(...)):
         audio_path: str = speaker(llm_response["reply"])
 
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(
             status_code=500,
             detail=f"Conversation pipeline failed: {str(e)}"
