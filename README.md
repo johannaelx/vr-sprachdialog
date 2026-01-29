@@ -24,9 +24,14 @@ cd backend
 pip install -r requirements.txt
 ```
 
-3. Start the FastAPI server using Uvicorn. After starting, the backend will be available at `http://localhost:8000`. You can verify that the server ist running by opening `http://localhost:8000/health`.
+3. Additionally, download the Piper text-to-speech voice model used by the backend. This step only needs to be done once.
+```bash
+python -m piper.download_voices en_US-lessac-medium
+```
+
+4. Start the FastAPI server using Uvicorn. After starting, the backend will be available at `http://localhost:8000`. You can verify that the server ist running by opening `http://localhost:8000/health`.
 ```bash
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-4. Open the Unity project using the Unity Editor. Start the scene in Unity and press and hold the space key to record speech input.
+5. Open the Unity project using the Unity Editor. Start the scene in Unity and press and hold the space key to record speech input.
