@@ -5,7 +5,7 @@ from piper import PiperVoice, SynthesisConfig
 # =====================================================
 # Pfade
 # =====================================================
-BASE_DIR = Path(__file__).resolve().parents[2]  # backend/
+BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "models" / "en_US-lessac-medium.onnx"
 
 # =====================================================
