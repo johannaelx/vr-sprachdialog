@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from app.asr.whisper import transcribe_wav_bytes
 from app.llm.openai_api import language_tutor
@@ -51,7 +51,7 @@ async def conversation(audio: UploadFile = File(...)):
         # Wird so vom LLM zurück gegeben 
 
         #TTS
-        audio_path: str = speaker(llm_response["reply"])
+        tts_audio: bytes = speaker(llm_response["reply"])
 
     except Exception as e:
         traceback.print_exc()
@@ -62,15 +62,7 @@ async def conversation(audio: UploadFile = File(...)):
     # =====================================================
     #JSON-mit sämtlichen Informationen aus der Pipeline 
     # =====================================================
-    return JSONResponse(
-        content={
-            "transcription": transcription,
-            "feedback": {
-                "is_correct": llm_response.get("is_correct"),
-                "correction": llm_response.get("correction"),
-                "explanation": llm_response.get("explanation"),
-                "reply": llm_response.get("reply"),
-            },
-            "audio_path": audio_path
-        }
+    return Response(
+        content=tts_audio,
+        media_type="audio/wav"
     )

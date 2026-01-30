@@ -1,3 +1,4 @@
+import io
 import wave
 from pathlib import Path
 from piper import PiperVoice, SynthesisConfig
@@ -37,12 +38,16 @@ syn_config = SynthesisConfig(
 # =====================================================
 #Lädt das TTS Modell 
 # =====================================================
-def speaker(text_input: str, output_path: str = "output.wav") -> str:
+def speaker(text_input: str) -> bytes:
     voice = get_voice()
-    with wave.open(output_path, "wb") as wav_file:
+
+    buffer = io.BytesIO()
+    with wave.open(buffer, "wb") as wav_file:
         voice.synthesize_wav(
             text_input,
             wav_file,
             syn_config=syn_config
         )
-    return output_path
+
+    buffer.seek(0)
+    return buffer.read()
