@@ -110,3 +110,10 @@ InitTestScene*.unity*
 # Python
 __pycache__/
 *.pyc
+
+# Environment variables (secrets)
+.env
+
+# Piper TTS models
+backend/app/tts/models/*.onnx
+backend/app/tts/models/*.json
