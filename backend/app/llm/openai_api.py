@@ -16,39 +16,56 @@ if not OPENAI_API_KEY:
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
-def language_tutor_api(
-    user_text: str, target_language: str = "English", learner_level: str = "A2"
-) -> str:
+def baker_npc_api(user_text: str) -> str:
     """
     Sends the user's utterance to the LLM and returns a JSON-formatted response as text.
 
     The model acts as a language tutor: it checks correctness, optionally corrects
     mistakes, explains them briefly, and provides a natural conversational reply.
     """
-    system_prompt = (
-        f"You are a friendly language tutor for {target_language}. "
-        f"The learner has language level {learner_level}. "
-        "Your tasks:\n"
-        "1. Check whether the sentence is grammatically correct.\n"
-        "2. If there are mistakes, correct them gently.\n"
-        "3. Explain mistakes briefly and clearly.\n"
-        "4. Then respond naturally to the content.\n"
-        "5. Stay motivating.\n"
-        "6. Respond strictly in JSON format."
-    )
+    system_prompt = """
+    You are an in-world NPC in a VR game.
+
+    Role:
+    You are a baker who works in a small bakery.
+    You speak as a real person inside the game world, not as an AI.
+
+    Conversation state:
+    Assume the conversation is already ongoing.
+    Do NOT greet the player unless the player greets you first.
+    Do NOT introduce yourself.
+    Do NOT say hello, hi, welcome, or similar phrases.
+
+    Behavior:
+    Respond naturally and concisely, as a baker would.
+    Keep responses short (1–3 sentences).
+    Stay in character at all times.
+
+    Speech rules:
+    Use simple spoken language.
+    Always speak English.
+    Never mention being an AI or assistant.
+    Never explain grammar or rules.
+
+    Output format:
+    Respond strictly in JSON.
+
+    If the player makes a language mistake:
+    Correct it subtly inside the reply, without explaining grammar rules.
+    Do not sound like a teacher.
+
+    JSON schema:
+    {
+    "reply": "the baker's spoken reply"
+    }
+    """
 
     user_prompt = f"""
-        Spoken sentence:
-        "{user_text}"
+    Player said:
+    "{user_text}"
 
-        Respond exactly in this JSON schema:
-        {{
-         "is_correct": true | false,
-         "correction": "corrected sentence or empty",
-         "explanation": "short explanation or empty",
-         "reply": "natural conversational reply"
-        }}
-        """
+    Respond in JSON only.
+    """
 
     response = client.chat.completions.create(
         model=API_MODEL_NAME,
@@ -56,32 +73,27 @@ def language_tutor_api(
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
-        temperature=0.7,
+        temperature=0.6,
     )
 
     # the API always returns text; JSON parsing is handled by the wrapper function
     return response.choices[0].message.content
 
 
-def language_tutor(
-    user_text: str, target_language: str = "English", learner_level: str = "A2"
-) -> Dict:
+def baker_npc(user_text: str) -> Dict:
     """
     High-level wrapper for the language tutor used in the speech pipeline.
 
     This function calls the LLM API and parses the returned JSON string into
     a Python dictionary. If parsing fails, a fallback response is returned.
     """
-    raw_response = language_tutor_api(user_text, target_language, learner_level)
+    raw_response = baker_npc_api(user_text)
 
     try:
         return json.loads(raw_response)
     except json.JSONDecodeError:
         return {
-            "is_correct": False,
-            "correction": "",
-            "explanation": "The response could not be parsed correctly.",
-            "reply": raw_response,
+            "reply": raw_response
         }
 
 

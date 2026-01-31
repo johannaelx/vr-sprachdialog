@@ -6,7 +6,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import Response
 
 from app.asr.whisper import transcribe_wav_bytes
-from app.llm.openai_api import language_tutor
+from app.llm.openai_api import baker_npc
 from app.tts.piper import speaker
 
 import traceback
@@ -36,16 +36,11 @@ async def conversation(audio: UploadFile = File(...)):
     try:
         # ASR
         transcription: str = transcribe_wav_bytes(wav_bytes)
+        print("TRANSCRIPTION:", repr(transcription))
 
         # LLM
-        llm_response: dict = language_tutor(transcription)
-        # Expected LLM response structure (only "reply" is used for TTS output):
-        # {
-        #   "is_correct": bool,
-        #   "correction": str,
-        #   "explanation": str,
-        #   "reply": str
-        # }
+        llm_response: dict = baker_npc(transcription)
+        print("LLM_RESPONSE:", repr(llm_response))
 
         # TTS
         tts_audio: bytes = speaker(llm_response["reply"])
