@@ -2,6 +2,7 @@ import os
 import json
 from typing import Dict
 from openai import OpenAI
+from collections import deque
 
 # OpenAI model used for conversational responses
 API_MODEL_NAME = "gpt-4o-mini"
@@ -15,6 +16,7 @@ if not OPENAI_API_KEY:
 # OpenAI client instance
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+NPC_MEMORY = deque(maxlen=6)
 
 def baker_npc_api(user_text: str) -> str:
     """
@@ -40,6 +42,7 @@ def baker_npc_api(user_text: str) -> str:
     Respond naturally and concisely, as a baker would.
     Keep responses short (1–3 sentences).
     Stay in character at all times.
+    You remember the recent conversation with the player and use it naturally.
 
     Speech rules:
     Use simple spoken language.
@@ -66,13 +69,22 @@ def baker_npc_api(user_text: str) -> str:
 
     Respond in JSON only.
     """
+    # Build messages with memory
+    messages = [
+        {"role": "system", "content": system_prompt},
+    ]
+
+    # add previous conversation memory
+    messages.extend(NPC_MEMORY)
+
+    # add current user message
+    messages.append(
+        {"role": "user", "content": user_prompt}
+    )
 
     response = client.chat.completions.create(
         model=API_MODEL_NAME,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt},
-        ],
+        messages=messages,
         temperature=0.6,
     )
 
@@ -90,11 +102,21 @@ def baker_npc(user_text: str) -> Dict:
     raw_response = baker_npc_api(user_text)
 
     try:
-        return json.loads(raw_response)
+        parsed = json.loads(raw_response)
+        reply_text = parsed.get("reply", "")
     except json.JSONDecodeError:
-        return {
-            "reply": raw_response
-        }
+        reply_text = raw_response
+        parsed = {"reply": reply_text}
+
+    # update NPC memory
+    NPC_MEMORY.append({"role": "user", "content": user_text})
+    NPC_MEMORY.append({"role": "assistant", "content": reply_text})
+
+    return parsed
+
+# TODO use this method to clear the NPC's memory after the level
+def reset_npc_memory():
+    NPC_MEMORY.clear()
 
 
 # Test
