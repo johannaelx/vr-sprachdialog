@@ -26,7 +26,10 @@ pip install -r requirements.txt
 
 3. Additionally, download the Piper text-to-speech voice model used by the backend. This step only needs to be done once.
 ```bash
-python -m piper.download_voices en_US-lessac-medium
+cd app/tts/models
+```
+```bash
+python -m piper.download_voices en_US-ryan-high
 ```
 
 4. Start the FastAPI server using Uvicorn. After starting, the backend will be available at `http://localhost:8000`. You can verify that the server ist running by opening `http://localhost:8000/health`.

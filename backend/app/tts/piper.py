@@ -7,7 +7,7 @@ from piper import PiperVoice, SynthesisConfig
 BASE_DIR = Path(__file__).resolve().parent
 
 # path to the Piper TTS model
-MODEL_PATH = BASE_DIR / "models" / "en_US-lessac-medium.onnx"
+MODEL_PATH = BASE_DIR / "models" / "en_US-ryan-medium.onnx"
 
 _voice = None
 
