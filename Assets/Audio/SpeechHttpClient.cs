@@ -18,9 +18,9 @@ public class SpeechHttpClient : MonoBehaviour
         audioSource.spatialBlend = 0f; // 2D Audio
     }
 
-    public void SendAudio(AudioClip clip)
+    public void SendAudio(float[] samples, int sampleRate, int channels)
     {
-        byte[] wavData = WavUtility.FromAudioClip(clip);
+        byte[] wavData = WavUtility.FromSamples(samples, sampleRate, channels);
         StartCoroutine(PostAudio(wavData));
     }
 

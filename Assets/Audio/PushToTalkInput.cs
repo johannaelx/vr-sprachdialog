@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 /// PushToTalkInput
 /// Component for handling push-to-talk input and coordinating audio recording and sending.
-
 public class PushToTalkInput : MonoBehaviour
 {
     public AudioRecorder recorder;
@@ -11,8 +10,6 @@ public class PushToTalkInput : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Update called in PushToTalkInput");
-
         if (Keyboard.current == null)
         {
             return;
@@ -25,15 +22,18 @@ public class PushToTalkInput : MonoBehaviour
 
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
-            AudioClip clip = recorder.StopRecording();
+            int sampleRate;
+            int channels;
 
-            if (clip != null && speechClient != null)
+            float[] samples = recorder.StopRecording(out sampleRate, out channels);
+
+            if (samples != null && speechClient != null)
             {
-                speechClient.SendAudio(clip);
+                speechClient.SendAudio(samples, sampleRate, channels);
             }
             else
             {
-                Debug.LogError("SpeechClient or AudioClip missing.");
+                Debug.LogWarning("No audio samples recorded or SpeechClient missing.");
             }
         }
     }

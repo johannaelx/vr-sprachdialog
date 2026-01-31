@@ -2,7 +2,6 @@ using UnityEngine;
 
 /// AudioRecorder
 /// Component for recording audio from the microphone.  
-
 public class AudioRecorder : MonoBehaviour
 {
     public int sampleRate = 16000;
@@ -26,17 +25,47 @@ public class AudioRecorder : MonoBehaviour
         Debug.Log("Recording started.");
     }
 
-    public AudioClip StopRecording()
+    public float[] StopRecording(out int sampleRate, out int channels)
+{
+    if (!isRecording)
     {
-        if (!isRecording) return null;
+        sampleRate = 0;
+        channels = 0;
+        return null;
+    }
+
+    int position = Microphone.GetPosition(null);
 
         Microphone.End(null);
         isRecording = false;
 
-        Debug.Log("Recording stopped");
+        if (position <= 0)
+        {
+            Debug.LogWarning("No microphone data recorded");
+            sampleRate = 0;
+            channels = 0;
+            return null;
+        }
 
-        return recordingClip;
+        if (position < sampleRate / 2) // < 0.5 seconds
+        {
+            Debug.LogWarning("Recording too short");
+            sampleRate = 0;
+            channels = 0;
+            return null;
+        }
+
+        sampleRate = recordingClip.frequency;
+        channels = recordingClip.channels;
+
+        float[] fullBuffer = new float[recordingClip.samples * channels];
+        recordingClip.GetData(fullBuffer, 0);
+
+        float[] trimmedSamples = new float[position * channels];
+        System.Array.Copy(fullBuffer, trimmedSamples, trimmedSamples.Length);
+
+        Debug.Log($"Recorded {position} samples");
+
+        return trimmedSamples;
     }
-
-
 }
