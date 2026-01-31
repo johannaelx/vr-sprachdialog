@@ -3,30 +3,28 @@ import json
 from typing import Dict
 from openai import OpenAI
 
-# =====================================================
-# Konfiguration des LLM
-# =====================================================
-USE_API = True  # False = lokales LLM, in unserem Fall durch die Hardware Beschränkungen keine Option
-API_MODEL_NAME = (
-    "gpt-4o-mini"  # Alternativ gpt-4 langsamer und teurer aber verlässlicher
-)
-LOCAL_MODEL_NAME = "mistralai/Mistral-7B-Instruct-v0.2"
+# OpenAI model used for conversational responses
+API_MODEL_NAME = "gpt-4o-mini"
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  # Key muss ergänzt werden
+# API key is read from the environment
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-if USE_API and not OPENAI_API_KEY:
+if not OPENAI_API_KEY:
     raise RuntimeError("OPENAI_API_KEY ist nicht gesetzt")
 
+# OpenAI client instance
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
-# =====================================================
-# Die eigentliche LLM Funktion (liefert Text bzw einen Sring)
-# =====================================================
 def language_tutor_api(
     user_text: str, target_language: str = "English", learner_level: str = "A2"
 ) -> str:
-    # Konfiguriert den Chat-Bot und gibt ihm eine "Identität"
+    """
+    Sends the user's utterance to the LLM and returns a JSON-formatted response as text.
+
+    The model acts as a language tutor: it checks correctness, optionally corrects
+    mistakes, explains them briefly, and provides a natural conversational reply.
+    """
     system_prompt = (
         f"You are a friendly language tutor for {target_language}. "
         f"The learner has language level {learner_level}. "
@@ -39,7 +37,6 @@ def language_tutor_api(
         "6. Respond strictly in JSON format."
     )
 
-    # Der Prompt des Nutzers, der die transkribierte Eingabe enthält
     user_prompt = f"""
         Spoken sentence:
         "{user_text}"
@@ -53,7 +50,6 @@ def language_tutor_api(
         }}
         """
 
-    # Erschafft den Chat mit dem Chatbot
     response = client.chat.completions.create(
         model=API_MODEL_NAME,
         messages=[
@@ -63,37 +59,36 @@ def language_tutor_api(
         temperature=0.7,
     )
 
-    # Rückgabe ist IMMER Text (JSON als String)
+    # the API always returns text; JSON parsing is handled by the wrapper function
     return response.choices[0].message.content
 
 
-# =====================================================
-# Interface für die Nutzung in der Pipeline
-# Parst JSON und kapselt API / lokales Modell
-# =====================================================
 def language_tutor(
     user_text: str, target_language: str = "English", learner_level: str = "A2"
 ) -> Dict:
+    """
+    High-level wrapper for the language tutor used in the speech pipeline.
+
+    This function calls the LLM API and parses the returned JSON string into
+    a Python dictionary. If parsing fails, a fallback response is returned.
+    """
     raw_response = language_tutor_api(user_text, target_language, learner_level)
 
     try:
         return json.loads(raw_response)
     except json.JSONDecodeError:
-        # Für den Fall das kein JSON erzeugt werden kann
         return {
             "is_correct": False,
             "correction": "",
-            "explanation": "Antwort konnte nicht korrekt verarbeitet werden.",
+            "explanation": "The response could not be parsed correctly.",
             "reply": raw_response,
         }
 
 
-# =====================================================
 # Test
-# =====================================================
-if __name__ == "__main__":
-    test_sentence = "Ein Belibiger Satz den man verarbeiten lassen möchte"
-    result = language_tutor(test_sentence)
+# if __name__ == "__main__":
+#   test_sentence = "Ein Belibiger Satz den man verarbeiten lassen möchte"
+#   result = language_tutor(test_sentence)
 
-    print(result)
-    print(type(result))  # sollte <class 'dict'> sein
+#   print(result)
+#   print(type(result))  # sollte <class 'dict'> sein

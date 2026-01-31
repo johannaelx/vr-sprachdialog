@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
-load_dotenv()
+
+load_dotenv()  # must run before importing modules that access env vars
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import Response
@@ -18,9 +19,7 @@ def health():
     return {"status": "ok"}
 
 
-# =====================================================
-# Audio Pipeline mit Verbindung zum HTTP Endpoint
-# =====================================================
+# Audio pipeline endpoint (ASR -> LLM -> TTS)
 @app.post("/conversation")
 async def conversation(audio: UploadFile = File(...)):
     if audio.content_type not in ("audio/wav", "audio/x-wav"):
@@ -40,14 +39,13 @@ async def conversation(audio: UploadFile = File(...)):
 
         # LLM
         llm_response: dict = language_tutor(transcription)
-        # Erwartete Struktur
+        # Expected LLM response structure (only "reply" is used for TTS output):
         # {
         #   "is_correct": bool,
         #   "correction": str,
         #   "explanation": str,
         #   "reply": str
         # }
-        # Wird so vom LLM zurück gegeben
 
         # TTS
         tts_audio: bytes = speaker(llm_response["reply"])
@@ -57,7 +55,6 @@ async def conversation(audio: UploadFile = File(...)):
         raise HTTPException(
             status_code=500, detail=f"Conversation pipeline failed: {str(e)}"
         )
-    # =====================================================
-    # JSON-mit sämtlichen Informationen aus der Pipeline
-    # =====================================================
+
+    # Audio response (WAV) from TTS
     return Response(content=tts_audio, media_type="audio/wav")

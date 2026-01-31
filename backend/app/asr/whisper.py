@@ -3,10 +3,24 @@ import numpy as np
 import whisper
 import soundfile as sf
 
+# loads the Whisper model once
 model = whisper.load_model("small")
 
 
 def wav_bytes_to_pcm(wac_bytes: bytes, expected_sr: int = 16000) -> np.ndarray:
+    """
+    Converts WAV audio bytes into a mono PCM float32 NumPy array.
+
+    Args:
+        wav_bytes: Raw WAV audio data as bytes.
+        expected_sr: Expected sample rate of the audio.
+
+    Returns:
+        A 1D NumPy array containing mono PCM audio samples.
+
+    Raises:
+        ValueError: If the sample rate does not match the expected value.
+    """
     with io.BytesIO(wac_bytes) as wav_io:
         audio, samplerate = sf.read(wav_io, dtype="float32")
 
@@ -23,6 +37,19 @@ def wav_bytes_to_pcm(wac_bytes: bytes, expected_sr: int = 16000) -> np.ndarray:
 
 
 def transcribe_pcm(audio_pcm: np.ndarray, language: str = "en") -> str:
+    """
+    Transcribes mono PCM audio data into text using the Whisper model.
+
+    Args:
+        audio_pcm: A 1D NumPy array containing mono PCM audio samples.
+        language: Language code used to guide Whisper transcription.
+
+    Returns:
+        The transcribed text. Returns an empty string for empty input.
+
+    Raises:
+        ValueError: If the input audio is not a 1D mono signal.
+    """
     if audio_pcm.ndim != 1:
         raise ValueError("audio_pcm must be a 1D mono signal")
 
@@ -35,5 +62,11 @@ def transcribe_pcm(audio_pcm: np.ndarray, language: str = "en") -> str:
 
 
 def transcribe_wav_bytes(wav_bytes: bytes, language: str = "en") -> str:
+    """
+    High-level helper that converts WAV audio bytes directly into text.
+
+    This function combines WAV decoding and transcription into a single
+    call and is intended for use in the speech pipeline.
+    """
     audio_pcm = wav_bytes_to_pcm(wav_bytes)
     return transcribe_pcm(audio_pcm, language)
