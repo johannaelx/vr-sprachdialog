@@ -1,48 +1,56 @@
+import io
 import wave
 from pathlib import Path
 from piper import PiperVoice, SynthesisConfig
 
-# =====================================================
-# Pfade
-# =====================================================
+# base directory of this module
 BASE_DIR = Path(__file__).resolve().parent
+
+# path to the Piper TTS model
 MODEL_PATH = BASE_DIR / "models" / "en_US-lessac-medium.onnx"
 
-# =====================================================
-# Lazy Loading der Stimme (sehr wichtig!)
-# =====================================================
 _voice = None
 
+
 def get_voice() -> PiperVoice:
+    """
+    Lazily loads and returns the Piper voice model.
+
+    The model is loaded only once and reused across requests to avoid expensive reinitialization.
+    """
     global _voice
     if _voice is None:
         if not MODEL_PATH.exists():
-            raise FileNotFoundError(
-                f"Piper model not found at: {MODEL_PATH}"
-            )
+            raise FileNotFoundError(f"Piper model not found at: {MODEL_PATH}")
         _voice = PiperVoice.load(str(MODEL_PATH))
     return _voice
 
-# =====================================================
-#Konfigurationen für die Audioerzeugung
-# ===================================================== 
+
+# configuration for speech synthesis
 syn_config = SynthesisConfig(
-    volume=0.5,  # relative Lautstärke (Standard = 1.0) 
-    length_scale=1.0,  # Sprechgeschwindigkeit (größer = langsamer)
-    noise_scale=1.0,  # Stimmvariation 
-    noise_w_scale=1.0,  # Variation in Timing und Betonung 
-    normalize_audio=False, # Lautstärke Normalisierung (False = Rohes PCM)
+    volume=0.5,  # output volume (default = 1.0)
+    length_scale=1.0,  # speaking rate (higher -> slower)
+    noise_scale=1.0,  # voice variation
+    noise_w_scale=1.0,  # timing and prosody variation
+    normalize_audio=False,  # disable normalization (raw PCM output)
 )
 
-# =====================================================
-#Lädt das TTS Modell 
-# =====================================================
-def speaker(text_input: str, output_path: str = "output.wav") -> str:
+
+def speaker(text_input: str) -> bytes:
+    """
+    Synthesizes speech from text and returns WAV audio as bytes.
+
+    Args:
+        text_input: The text to be spoken.
+
+    Returns:
+        WAV audio data as bytes.
+    """
     voice = get_voice()
-    with wave.open(output_path, "wb") as wav_file:
-        voice.synthesize_wav(
-            text_input,
-            wav_file,
-            syn_config=syn_config
-        )
-    return output_path
+
+    buffer = io.BytesIO()
+    with wave.open(buffer, "wb") as wav_file:
+        voice.synthesize_wav(text_input, wav_file, syn_config=syn_config)
+
+    buffer.seek(0)
+    return buffer.read()
