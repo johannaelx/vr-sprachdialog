@@ -22,12 +22,7 @@ def wav_bytes_to_pcm(wac_bytes: bytes, expected_sr: int = 16000) -> np.ndarray:
         ValueError: If the sample rate does not match the expected value.
     """
     with io.BytesIO(wac_bytes) as wav_io:
-        audio, samplerate = sf.read(wav_io, dtype="float32")
-
-    if samplerate != expected_sr:
-        raise ValueError(
-            f"Unexpected sample rate: {samplerate}, expected: {expected_sr}"
-        )
+        audio = sf.read(wav_io, dtype="float32")
 
     # convert to mono if stereo
     if audio.ndim > 1:

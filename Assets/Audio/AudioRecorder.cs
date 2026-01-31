@@ -47,14 +47,6 @@ public class AudioRecorder : MonoBehaviour
             return null;
         }
 
-        if (position < sampleRate / 2) // < 0.5 seconds
-        {
-            Debug.LogWarning("Recording too short");
-            sampleRate = 0;
-            channels = 0;
-            return null;
-        }
-
         sampleRate = recordingClip.frequency;
         channels = recordingClip.channels;
 
