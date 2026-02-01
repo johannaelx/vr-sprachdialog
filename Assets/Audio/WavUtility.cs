@@ -4,15 +4,11 @@ using UnityEngine;
 
 /// WavUtility
 /// Utility class for converting AudioClip to WAV byte array.
-
 public static class WavUtility
 {
-    public static byte[] FromAudioClip(AudioClip clip)
+    public static byte[] FromSamples(float[] samples, int sampleRate, int channels)
     {
-        float[] samples = new float[clip.samples * clip.channels];
-        clip.GetData(samples, 0);
-
-        return ConvertToWav(samples, clip.frequency, clip.channels);
+        return ConvertToWav(samples, sampleRate, channels);
     }
 
     private static byte[] ConvertToWav(float[] samples, int sampleRate, int channels)

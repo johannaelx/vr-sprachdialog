@@ -7,27 +7,18 @@ import soundfile as sf
 model = whisper.load_model("small")
 
 
-def wav_bytes_to_pcm(wac_bytes: bytes, expected_sr: int = 16000) -> np.ndarray:
+def wav_bytes_to_pcm(wav_bytes: bytes) -> np.ndarray:
     """
     Converts WAV audio bytes into a mono PCM float32 NumPy array.
 
     Args:
         wav_bytes: Raw WAV audio data as bytes.
-        expected_sr: Expected sample rate of the audio.
 
     Returns:
         A 1D NumPy array containing mono PCM audio samples.
-
-    Raises:
-        ValueError: If the sample rate does not match the expected value.
     """
-    with io.BytesIO(wac_bytes) as wav_io:
+    with io.BytesIO(wav_bytes) as wav_io:
         audio, samplerate = sf.read(wav_io, dtype="float32")
-
-    if samplerate != expected_sr:
-        raise ValueError(
-            f"Unexpected sample rate: {samplerate}, expected: {expected_sr}"
-        )
 
     # convert to mono if stereo
     if audio.ndim > 1:
@@ -36,13 +27,12 @@ def wav_bytes_to_pcm(wac_bytes: bytes, expected_sr: int = 16000) -> np.ndarray:
     return audio
 
 
-def transcribe_pcm(audio_pcm: np.ndarray, language: str = "en") -> str:
+def transcribe_pcm(audio_pcm: np.ndarray) -> str:
     """
     Transcribes mono PCM audio data into text using the Whisper model.
 
     Args:
         audio_pcm: A 1D NumPy array containing mono PCM audio samples.
-        language: Language code used to guide Whisper transcription.
 
     Returns:
         The transcribed text. Returns an empty string for empty input.
@@ -56,12 +46,12 @@ def transcribe_pcm(audio_pcm: np.ndarray, language: str = "en") -> str:
     if audio_pcm.size == 0:
         return ""
 
-    result = model.transcribe(audio_pcm, fp16=False, language=language)
+    result = model.transcribe(audio_pcm, fp16=False, task="transcribe")
 
     return result.get("text", "").strip()
 
 
-def transcribe_wav_bytes(wav_bytes: bytes, language: str = "en") -> str:
+def transcribe_wav_bytes(wav_bytes: bytes) -> str:
     """
     High-level helper that converts WAV audio bytes directly into text.
 
@@ -69,4 +59,4 @@ def transcribe_wav_bytes(wav_bytes: bytes, language: str = "en") -> str:
     call and is intended for use in the speech pipeline.
     """
     audio_pcm = wav_bytes_to_pcm(wav_bytes)
-    return transcribe_pcm(audio_pcm, language)
+    return transcribe_pcm(audio_pcm)
