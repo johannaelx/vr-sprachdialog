@@ -29,12 +29,13 @@ pip install -r requirements.txt
 cd app/tts/models
 ```
 ```bash
-python -m piper.download_voices en_US-ryan-high
+python -m piper.download_voices en_US-ryan-medium
 ```
 
-4. Start the FastAPI server using Uvicorn. After starting, the backend will be available at `http://localhost:8000`. You can verify that the server ist running by opening `http://localhost:8000/health`.
+4. Change into the `backend`directory. Start the FastAPI server using Uvicorn. After starting, the backend will be available at `http://localhost:8000`. You can verify that the server ist running by opening `http://localhost:8000/health`.
 ```bash
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 5. Open the Unity project using the Unity Editor. Start the scene in Unity and press and hold the space key to record speech input.
+
