@@ -22,8 +22,9 @@ def baker_npc_api(user_text: str) -> str:
     """
     Sends the user's utterance to the LLM and returns a JSON-formatted response as text.
 
-    The model acts as a language tutor: it checks correctness, optionally corrects
-    mistakes, explains them briefly, and provides a natural conversational reply.
+    The model acts as an in-world baker NPC in a VR language learning game.
+    It responds naturally in character and subtly corrects language mistakes
+    inside the reply without explicit explanations.
     """
     system_prompt = """
     You are an in-world NPC in a VR game.
@@ -61,11 +62,6 @@ def baker_npc_api(user_text: str) -> str:
 
     Output format:
     Respond strictly in JSON.
-
-    If the player makes a language mistake:
-    Correct it subtly inside the reply, without explaining grammar rules.
-    Do not sound like a teacher.
-
     JSON schema:
     {
     "reply": "the baker's spoken reply"
@@ -83,7 +79,7 @@ def baker_npc_api(user_text: str) -> str:
         {"role": "system", "content": system_prompt},
     ]
 
-    # add previous conversation memory
+    # add recent dialogue turns to maintain short-term context
     messages.extend(NPC_MEMORY)
 
     # add current user message
@@ -103,7 +99,7 @@ def baker_npc_api(user_text: str) -> str:
 
 def baker_npc(user_text: str) -> Dict:
     """
-    High-level wrapper for the language tutor used in the speech pipeline.
+    High-level wrapper for the NPC used in the speech pipeline.
 
     This function calls the LLM API and parses the returned JSON string into
     a Python dictionary. If parsing fails, a fallback response is returned.
@@ -126,12 +122,3 @@ def baker_npc(user_text: str) -> Dict:
 # TODO use this method to clear the NPC's memory after the level
 def reset_npc_memory():
     NPC_MEMORY.clear()
-
-
-# Test
-# if __name__ == "__main__":
-#   test_sentence = "Ein Belibiger Satz den man verarbeiten lassen möchte"
-#   result = language_tutor(test_sentence)
-
-#   print(result)
-#   print(type(result))  # sollte <class 'dict'> sein

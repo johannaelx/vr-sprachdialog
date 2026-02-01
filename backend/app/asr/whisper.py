@@ -7,21 +7,17 @@ import soundfile as sf
 model = whisper.load_model("small")
 
 
-def wav_bytes_to_pcm(wac_bytes: bytes, expected_sr: int = 16000) -> np.ndarray:
+def wav_bytes_to_pcm(wav_bytes: bytes) -> np.ndarray:
     """
     Converts WAV audio bytes into a mono PCM float32 NumPy array.
 
     Args:
         wav_bytes: Raw WAV audio data as bytes.
-        expected_sr: Expected sample rate of the audio.
 
     Returns:
         A 1D NumPy array containing mono PCM audio samples.
-
-    Raises:
-        ValueError: If the sample rate does not match the expected value.
     """
-    with io.BytesIO(wac_bytes) as wav_io:
+    with io.BytesIO(wav_bytes) as wav_io:
         audio, samplerate = sf.read(wav_io, dtype="float32")
 
     # convert to mono if stereo
@@ -37,7 +33,6 @@ def transcribe_pcm(audio_pcm: np.ndarray) -> str:
 
     Args:
         audio_pcm: A 1D NumPy array containing mono PCM audio samples.
-        language: Language code used to guide Whisper transcription.
 
     Returns:
         The transcribed text. Returns an empty string for empty input.

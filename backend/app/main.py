@@ -19,9 +19,14 @@ def health():
     return {"status": "ok"}
 
 
-# Audio pipeline endpoint (ASR -> LLM -> TTS)
 @app.post("/conversation")
 async def conversation(audio: UploadFile = File(...)):
+    """
+    Processes a spoken user input through the full speech pipeline:
+    ASR (Whisper) -> LLM (NPC logic) -> TTS (Piper).
+
+    Expects a WAV audio file and returns synthesized speech as WAV audio.
+    """
     if audio.content_type not in ("audio/wav", "audio/x-wav"):
         raise HTTPException(
             status_code=400,
