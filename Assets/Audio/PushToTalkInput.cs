@@ -15,12 +15,12 @@ public class PushToTalkInput : MonoBehaviour
             return;
         }
 
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             recorder.StartRecording();
         }
 
-        if (Keyboard.current.spaceKey.wasReleasedThisFrame)
+        if (Keyboard.current.bKey.wasReleasedThisFrame)
         {
             int sampleRate;
             int channels;
