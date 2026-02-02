@@ -6,3 +6,8 @@
 *.asmdef text eol=lf
 *.asset text eol=lf
 *.txt text eol=lf
+
+# Unity Scene / Prefab / Input System
+*.unity text eol=lf
+*.prefab text eol=lf
+*.inputactions text eol=lf
