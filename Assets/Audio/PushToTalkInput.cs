@@ -8,15 +8,31 @@ public class PushToTalkInput : MonoBehaviour
     public AudioRecorder recorder;
     public SpeechHttpClient speechClient;
 
+    private bool isProcessing = false;
+
+    void OnEnable()
+    {
+        Debug.Log($"OnEnable – speechClient null? {speechClient == null}");
+        if (speechClient != null)
+            speechClient.OnPlaybackFinished += OnPlaybackFinished;
+    }
+
+    void OnDisable()
+    {
+        if (speechClient != null)
+            speechClient.OnPlaybackFinished -= OnPlaybackFinished;
+    }
+
     void Update()
     {
-        if (Keyboard.current == null)
+        if (Keyboard.current == null || isProcessing)
         {
             return;
         }
 
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
+            Debug.Log($"Space pressed – isProcessing: {isProcessing}");
             recorder.StartRecording();
         }
 
@@ -29,6 +45,7 @@ public class PushToTalkInput : MonoBehaviour
 
             if (samples != null && speechClient != null)
             {
+                isProcessing = true;
                 speechClient.SendAudio(samples, sampleRate, channels);
             }
             else
@@ -36,5 +53,10 @@ public class PushToTalkInput : MonoBehaviour
                 Debug.LogWarning("No audio samples recorded or SpeechClient missing.");
             }
         }
+    }
+
+    private void OnPlaybackFinished()
+    {
+        isProcessing = false;
     }
 }

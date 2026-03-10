@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,6 +12,9 @@ public class SpeechHttpClient : MonoBehaviour
     private string endpoint = "http://localhost:8000/conversation";
 
     private AudioSource audioSource;
+
+    /// Fired when TTS playback has fully completed (or an error occurred).
+    public event Action OnPlaybackFinished;
 
     void Awake()
     {
@@ -38,6 +42,7 @@ public class SpeechHttpClient : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError("Speech backend error: " + request.error);
+            OnPlaybackFinished?.Invoke();
             yield break;
         }
         
@@ -46,6 +51,7 @@ public class SpeechHttpClient : MonoBehaviour
         if (ttsClip == null)
         {
             Debug.LogError("Received null AudioClip from backend");
+            OnPlaybackFinished?.Invoke();
             yield break;
         }
         
@@ -53,5 +59,11 @@ public class SpeechHttpClient : MonoBehaviour
         audioSource.PlayOneShot(ttsClip);
 
         Debug.Log("TTS playback started");
+
+        // Wait until playback is done
+        yield return new WaitForSeconds(ttsClip.length);
+
+        Debug.Log("TTS playback finished");
+        OnPlaybackFinished?.Invoke();
     }
 }
