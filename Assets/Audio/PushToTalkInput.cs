@@ -12,7 +12,6 @@ public class PushToTalkInput : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log($"OnEnable – speechClient null? {speechClient == null}");
         if (speechClient != null)
             speechClient.OnPlaybackFinished += OnPlaybackFinished;
     }
@@ -32,7 +31,6 @@ public class PushToTalkInput : MonoBehaviour
 
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
-            Debug.Log($"Space pressed – isProcessing: {isProcessing}");
             recorder.StartRecording();
         }
 
