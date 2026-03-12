@@ -1140,6 +1140,7 @@ GameObject:
   - component: {fileID: 239172977}
   - component: {fileID: 239172976}
   - component: {fileID: 239172975}
+  - component: {fileID: 239172980}
   m_Layer: 0
   m_Name: SpeechManager
   m_TagString: Untagged
@@ -1160,6 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeechHttpClient
   endpoint: http://localhost:8000/conversation
+  subtitleDisplay: {fileID: 239172980}
 --- !u!82 &239172976
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1271,6 +1273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PushToTalkInput
   recorder: {fileID: 239172978}
   speechClient: {fileID: 239172975}
+  subtitleDisplay: {fileID: 239172980}
 --- !u!114 &239172978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1300,6 +1303,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239172980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239172974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f716f3e88f8a34c1c90cb2b7f8ddba37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SubtitleDisplay
 --- !u!1 &262589070 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7029948723529949830, guid: 4f6ed4fe15fd0429f89523f4a3ec8135, type: 3}
