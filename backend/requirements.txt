@@ -1,0 +1,10 @@
+openai-whisper
+numpy
+torch
+soundfile
+fastapi
+uvicorn
+python-multipart
+openai
+piper-tts
+python-dotenv
