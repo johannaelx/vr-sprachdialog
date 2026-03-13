@@ -4,6 +4,9 @@ from typing import Dict
 from openai import OpenAI
 from collections import deque
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # OpenAI model used for conversational responses
 API_MODEL_NAME = "gpt-4o-mini"
 
