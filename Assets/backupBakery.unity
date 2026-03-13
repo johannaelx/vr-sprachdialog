@@ -5585,6 +5585,7 @@ GameObject:
   - component: {fileID: 1334367521}
   - component: {fileID: 1334367524}
   - component: {fileID: 1334367525}
+  - component: {fileID: 1334367526}
   m_Layer: 0
   m_Name: SpeechManager
   m_TagString: Untagged
@@ -5648,6 +5649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeechHttpClient
   endpoint: http://localhost:8000/conversation
+  subtitleDisplay: {fileID: 1334367526}
 --- !u!82 &1334367525
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5745,6 +5747,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1334367526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334367520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f716f3e88f8a34c1c90cb2b7f8ddba37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SubtitleDisplay
 --- !u!1 &1364738264
 GameObject:
   m_ObjectHideFlags: 0

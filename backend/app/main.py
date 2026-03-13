@@ -2,8 +2,10 @@ from dotenv import load_dotenv
 
 load_dotenv()  # must run before importing modules that access env vars
 
+import base64
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse
 
 from app.asr.whisper import transcribe_wav_bytes
 from app.llm.openai_api import baker_npc
@@ -56,5 +58,11 @@ async def conversation(audio: UploadFile = File(...)):
             status_code=500, detail=f"Conversation pipeline failed: {str(e)}"
         )
 
-    # Audio response (WAV) from TTS
-    return Response(content=tts_audio, media_type="audio/wav")
+    # encode WAV audio as base64 for JSON transport
+    audio_b64 = base64.b64encode(tts_audio).decode("utf-8")
+
+    # return NPC reply text alongside the synthesized audio
+    return JSONResponse(content={
+        "reply": llm_response["reply"],
+        "audio": audio_b64,
+    })
