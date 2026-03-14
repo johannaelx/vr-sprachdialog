@@ -3300,7 +3300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PushToTalkInput
   recorder: {fileID: 482393816}
   speechClient: {fileID: 482393815}
-  feedbackText: {fileID: 0}
+  feedbackText: {fileID: 161111282}
   pushToTalkAction: {fileID: 1053108339}
 --- !u!114 &482393815
 MonoBehaviour:
@@ -3314,7 +3314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cc1e7cb7a3f184cbee28ad040a7fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeechHttpClient
-  endpoint: http://localhost:8000/conversation
+  endpoint: http://192.168.178.21:8000/conversation
 --- !u!114 &482393816
 MonoBehaviour:
   m_ObjectHideFlags: 0

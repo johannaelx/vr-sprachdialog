@@ -9,12 +9,23 @@ using UnityEngine.Networking;
 public class SpeechHttpClient : MonoBehaviour
 {
     [SerializeField]
-    private string endpoint = "http://localhost:8000/conversation";
-
+    private string endpoint = "http://192.168.178.21:8000/conversation";
+    public SubtitleDisplay subtitleDisplay;
     private AudioSource audioSource;
+
+    /// Fired when TTS playback starts.
+    public event Action OnPlaybackStarted;
 
     /// Fired when TTS playback has fully completed (or an error occurred).
     public event Action OnPlaybackFinished;
+
+    // Matches the JSON schema returned by the /conversation endpoint
+    [Serializable]
+    private class ConversationResponse
+    {
+        public string reply;
+        public string audio;
+    }
 
     void Awake()
     {
@@ -35,7 +46,7 @@ public class SpeechHttpClient : MonoBehaviour
 
         using UnityWebRequest request = UnityWebRequest.Post(endpoint, form);
 
-        request.downloadHandler = new DownloadHandlerAudioClip(endpoint, AudioType.WAV);
+        request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();
 
@@ -45,8 +56,22 @@ public class SpeechHttpClient : MonoBehaviour
             OnPlaybackFinished?.Invoke();
             yield break;
         }
-        
-        AudioClip ttsClip = DownloadHandlerAudioClip.GetContent(request);
+
+        // Parse JSON response containing reply text and base64-encoded audio
+        ConversationResponse response = JsonUtility.FromJson<ConversationResponse>(
+            request.downloadHandler.text
+        );
+
+        if (response == null || string.IsNullOrEmpty(response.audio))
+        {
+            Debug.LogError("Invalid or empty response from speech backend");
+            OnPlaybackFinished?.Invoke();
+            yield break;
+        }
+
+        // Decode base64-encoded WAV audio from the backend
+        byte[] audioBytes = Convert.FromBase64String(response.audio);
+        AudioClip ttsClip = WavUtility.ToAudioClip(audioBytes);
 
         if (ttsClip == null)
         {
@@ -54,11 +79,18 @@ public class SpeechHttpClient : MonoBehaviour
             OnPlaybackFinished?.Invoke();
             yield break;
         }
-        
+
+        if (subtitleDisplay != null && !string.IsNullOrEmpty(response.reply))
+        {
+            subtitleDisplay.ShowSubtitle(response.reply, ttsClip.length);
+        }
+
+
         audioSource.Stop();
         audioSource.PlayOneShot(ttsClip);
 
         Debug.Log("TTS playback started");
+        OnPlaybackStarted?.Invoke();
 
         // Wait until playback is done
         yield return new WaitForSeconds(ttsClip.length);

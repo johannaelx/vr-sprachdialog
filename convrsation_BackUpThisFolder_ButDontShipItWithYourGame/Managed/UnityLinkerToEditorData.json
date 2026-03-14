@@ -146,12 +146,6 @@
             "scenes": [],
             "dependencyType": 1,
             "icon": null
-          },
-          {
-            "name": "Required by UnityWebRequestAudio Module",
-            "scenes": [],
-            "dependencyType": 2,
-            "icon": "package/com.unity.modules.unitywebrequestaudio"
           }
         ]
       },
@@ -438,6 +432,7 @@
             "name": "RectTransform",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -523,6 +518,7 @@
           {
             "name": "Sprite",
             "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -779,12 +775,6 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.unitywebrequest"
-          },
-          {
-            "name": "Required by UnityWebRequestAudio Module",
-            "scenes": [],
-            "dependencyType": 2,
-            "icon": "package/com.unity.modules.unitywebrequestaudio"
           },
           {
             "name": "Required by VFX Module",
@@ -1360,12 +1350,6 @@
             "icon": "package/com.unity.modules.unitywebrequest"
           },
           {
-            "name": "Required by UnityWebRequestAudio Module",
-            "scenes": [],
-            "dependencyType": 2,
-            "icon": "package/com.unity.modules.unitywebrequestaudio"
-          },
-          {
             "name": "Required by VFX Module",
             "scenes": [],
             "dependencyType": 2,
@@ -1483,6 +1467,7 @@
             "name": "Font",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1533,6 +1518,7 @@
             "name": "Canvas",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1548,6 +1534,7 @@
             "name": "CanvasRenderer",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1678,18 +1665,8 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.unityanalytics"
-          },
-          {
-            "name": "Required by UnityWebRequestAudio Module",
-            "scenes": [],
-            "dependencyType": 2,
-            "icon": "package/com.unity.modules.unitywebrequestaudio"
           }
         ]
-      },
-      {
-        "name": "UnityWebRequestAudio",
-        "dependencies": []
       },
       {
         "name": "VFX",

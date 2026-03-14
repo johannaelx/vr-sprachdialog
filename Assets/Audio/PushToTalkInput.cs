@@ -1,132 +1,140 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using System.Collections;
 
 public class PushToTalkInput : MonoBehaviour
 {
     public AudioRecorder recorder;
     public SpeechHttpClient speechClient;
-    public TextMeshProUGUI feedbackText;
-
-    public InputActionReference pushToTalkAction; // <- Controller-Button hier zuweisen
+    public TMP_Text feedbackText;
+    public InputActionReference pushToTalkAction;
 
     private bool isProcessing = false;
-    private Coroutine feedbackCoroutine;
-
-    private float idleTimer = 0f;
-    private const float IDLE_THRESHOLD = 10f;
-
     private bool wasPressedLastFrame = false;
+
+    private const string DEFAULT_MESSAGE =
+        "<color=#FFFF00><b>Halte B gedrückt, während du etwas sagst.</b></color>";
+
+    private const string PROCESSING_MESSAGE =
+        "<color=#FFFF00><b>Denkt nach...</b></color>";
+
+    private const string WAIT_MESSAGE =
+        "<color=#FFFF00><b>Warte erst die Antwort ab, bevor du etwas Neues sagst.</b></color>";
 
     void Start()
     {
-        if (feedbackText != null)
-            feedbackText.gameObject.SetActive(false);
+        ShowFeedback(DEFAULT_MESSAGE);
     }
 
     void OnEnable()
     {
         if (speechClient != null)
+        {
+            speechClient.OnPlaybackStarted += OnPlaybackStarted;
             speechClient.OnPlaybackFinished += OnPlaybackFinished;
+        }
 
-        if (pushToTalkAction != null)
+        if (pushToTalkAction != null && pushToTalkAction.action != null)
             pushToTalkAction.action.Enable();
     }
 
     void OnDisable()
     {
         if (speechClient != null)
+        {
+            speechClient.OnPlaybackStarted -= OnPlaybackStarted;
             speechClient.OnPlaybackFinished -= OnPlaybackFinished;
+        }
 
-        if (pushToTalkAction != null)
+        if (pushToTalkAction != null && pushToTalkAction.action != null)
             pushToTalkAction.action.Disable();
     }
 
     void Update()
     {
-        if (pushToTalkAction == null) return;
+        if (pushToTalkAction == null || pushToTalkAction.action == null)
+            return;
 
         bool isPressed = pushToTalkAction.action.IsPressed();
 
-        if (!isProcessing)
-        {
-            idleTimer += Time.deltaTime;
-            if (idleTimer >= IDLE_THRESHOLD)
-            {
-                ShowFeedbackMessage("Drücke und halte den Controller-Button zum Sprechen.", 3f);
-                idleTimer = 0f;
-            }
-        }
-
-        // Button wurde gerade gedrückt
         if (isPressed && !wasPressedLastFrame)
         {
-            ResetIdle();
-
             if (isProcessing)
             {
-                ShowFeedbackMessage("Bitte warte, bis der Bäcker fertig geantwortet hat.", 3f);
+                ShowFeedback(WAIT_MESSAGE);
             }
             else
             {
-                recorder.StartRecording();
+                if (recorder != null)
+                {
+                    recorder.StartRecording();
+                }
+                else
+                {
+                    Debug.LogWarning("Recorder ist nicht zugewiesen.");
+                }
             }
         }
 
-        // Button wurde gerade losgelassen
-        if (!isPressed && wasPressedLastFrame && !isProcessing)
+        if (!isPressed && wasPressedLastFrame)
         {
-            ResetIdle();
-
-            int sampleRate;
-            int channels;
-            float[] samples = recorder.StopRecording(out sampleRate, out channels);
-
-            if (samples != null && speechClient != null)
+            if (!isProcessing)
             {
-                isProcessing = true;
-                speechClient.SendAudio(samples, sampleRate, channels);
-            }
-            else
-            {
-                Debug.LogWarning("No audio samples recorded or SpeechClient missing.");
-                ShowFeedbackMessage("Drücke und halte den Controller-Button zum Sprechen.", 3f);
+                if (recorder != null)
+                {
+                    int sampleRate;
+                    int channels;
+                    float[] samples = recorder.StopRecording(out sampleRate, out channels);
+
+                    if (samples != null && speechClient != null)
+                    {
+                        isProcessing = true;
+                        ShowFeedback(PROCESSING_MESSAGE);
+                        speechClient.SendAudio(samples, sampleRate, channels);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Keine Audio-Daten aufgenommen oder Speech Client fehlt.");
+                        ShowFeedback(DEFAULT_MESSAGE);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Recorder ist nicht zugewiesen.");
+                    ShowFeedback(DEFAULT_MESSAGE);
+                }
             }
         }
 
         wasPressedLastFrame = isPressed;
     }
 
-    private void ResetIdle()
+    private void OnPlaybackStarted()
     {
-        idleTimer = 0f;
-    }
-
-    private void ShowFeedbackMessage(string message, float duration)
-    {
-        if (feedbackText == null) return;
-
-        if (feedbackCoroutine != null)
-            StopCoroutine(feedbackCoroutine);
-
-        feedbackCoroutine = StartCoroutine(DisableFeedbackAfterDelay(message, duration));
-    }
-
-    private IEnumerator DisableFeedbackAfterDelay(string message, float duration)
-    {
-        feedbackText.text = message;
-        feedbackText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(duration);
-
-        feedbackText.gameObject.SetActive(false);
-        feedbackCoroutine = null;
+        HideFeedback();
     }
 
     private void OnPlaybackFinished()
     {
         isProcessing = false;
-        ResetIdle();
+        ShowFeedback(DEFAULT_MESSAGE);
+    }
+
+    private void ShowFeedback(string message)
+    {
+        if (feedbackText != null)
+        {
+            feedbackText.richText = true;
+            feedbackText.text = message;
+            feedbackText.gameObject.SetActive(true);
+        }
+    }
+
+    private void HideFeedback()
+    {
+        if (feedbackText != null)
+        {
+            feedbackText.gameObject.SetActive(false);
+        }
     }
 }

@@ -3426,6 +3426,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "959e5f3a-5be6-42fd-be9e-b011a8c0963c",
+            "actions": [
+                {
+                    "name": "ToggleSubtitles",
+                    "type": "Button",
+                    "id": "06524a39-1e04-4145-b9bd-857a4aa96dba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "83869950-16f9-4a68-8494-9d1ed9fab627",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleSubtitles",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b71ee2d-2cb7-4e99-9d53-52f99254532f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleSubtitles",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
