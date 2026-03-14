@@ -87,6 +87,18 @@ struct IntPtr_t
 {
 	void* ___m_value;
 };
+struct RectInt_t1744D10E1063135DA9D574F95205B98DAC600CB8 
+{
+	int32_t ___m_XMin;
+	int32_t ___m_YMin;
+	int32_t ___m_Width;
+	int32_t ___m_Height;
+};
+struct Vector2Int_t69B2886EBAB732D9B880565E18E7568F3DE0CE6A 
+{
+	int32_t ___m_X;
+	int32_t ___m_Y;
+};
 struct Void_t4861ACF8F4594C3437BB48B6E56783494B843915 
 {
 	union
@@ -113,6 +125,10 @@ struct PerformanceSubDomain_t7A62BDCAA3DB2B70953008BE33C13BE975DC9222
 {
 	int32_t ___value__;
 };
+struct TextureFormat_t87A73E4A3850D3410DC211676FC14B94226C1C1D 
+{
+	int32_t ___value__;
+};
 struct XrResult_tC6E780422C0CF27153FB9B0ED7D1F60015608195 
 {
 	int32_t ___value__;
@@ -122,6 +138,14 @@ struct ScriptEvent_t98D7BEA7A83AEC5AC0316FCED0B85028D4E75DAD
 	int32_t ___value__;
 };
 struct NativeEvent_t2C54A0DE392B348B223984562B66B06F48BC7F04 
+{
+	int32_t ___value__;
+};
+struct AsyncConversionStatus_tB9035BBA640774DAFF34FEEE5DF141A2F24E1236 
+{
+	int32_t ___value__;
+};
+struct Transformation_t26ED8CF20E035506740A8504E00ECD67AF5FD137 
 {
 	int32_t ___value__;
 };
@@ -136,6 +160,13 @@ struct PerformanceChangeNotification_t68CEE147E0116EB9C4506C2573D8FE5BAFD2803F
 	int32_t ___fromLevel;
 	int32_t ___toLevel;
 };
+struct ConversionParams_t062706B15E2C508C54473A1FD72013C4381CCB62 
+{
+	RectInt_t1744D10E1063135DA9D574F95205B98DAC600CB8 ___m_InputRect;
+	Vector2Int_t69B2886EBAB732D9B880565E18E7568F3DE0CE6A ___m_OutputDimensions;
+	int32_t ___m_Format;
+	int32_t ___m_Transformation;
+};
 struct IntPtr_t_StaticFields
 {
 	intptr_t ___Zero;
@@ -144,6 +175,7 @@ struct IntPtr_t_StaticFields
 #pragma clang diagnostic pop
 #endif
 
+extern "C" void DEFAULT_CALL ReversePInvokeWrapper_ARCameraBackground_BeforeBackgroundRenderHandler_m3B215B54CFB6F6F00A724D9A6BE66808593ABFCD(int32_t ___0_eventId);
 extern "C" int32_t CDECL ReversePInvokeWrapper_AutoFreeAllocator_Try_m4FFF073754714947DFC8F4D7134E74CDC78C019C(intptr_t ___0_state, Block_tCCF620817FE305B5BF7B0FB7705B4571F976C4E3* ___1_block);
 extern "C" int32_t CDECL ReversePInvokeWrapper_AutoFreeAllocator_TryU24BurstManaged_mE86E6DC99C88B259454710D7CC1906F995968ECF(intptr_t ___0_state, Block_tCCF620817FE305B5BF7B0FB7705B4571F976C4E3* ___1_block);
 extern "C" float CDECL ReversePInvokeWrapper_BurstLerpUtility_BezierLerp_m220183D42AD0C46098A917051EC1D5758BD73DB3(float ___0_start, float ___1_end, float ___2_t, float ___3_controlHeightFactor);
@@ -214,6 +246,7 @@ extern "C" void CDECL ReversePInvokeWrapper_SmartFollowVector3TweenableVariable_
 extern "C" int32_t CDECL ReversePInvokeWrapper_SmartFollowVector3TweenableVariable_IsNewTargetWithinThreshold_m94D80518E663781B4263624CA2C27A68E0AF1F1C(float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___0_currentValue, float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___1_targetValue, float ___2_minDistanceAllowed, float ___3_maxDistanceAllowed, float ___4_timeSinceLastUpdate, float ___5_minToMaxDelaySeconds);
 extern "C" int32_t CDECL ReversePInvokeWrapper_X86_DoGetCSRTrampoline_mFFBFD9D1618E08CBB4E263D811ED0782B31FA299();
 extern "C" void CDECL ReversePInvokeWrapper_X86_DoSetCSRTrampoline_mAD4DB2BFB00E514CED43990AD8CC823B3EBF666C(int32_t ___0_bits);
+extern "C" void DEFAULT_CALL ReversePInvokeWrapper_XRCpuImage_OnAsyncConversionComplete_mDC3A0C88A34909C9D08E4BE7E94C8E27E2BB3D3C(int32_t ___0_status, ConversionParams_t062706B15E2C508C54473A1FD72013C4381CCB62 ___1_conversionParams, intptr_t ___2_dataPtr, int32_t ___3_dataLength, intptr_t ___4_context);
 extern "C" void CDECL ReversePInvokeWrapper_XRGazeAssistance_GetAssistedVelocityInternal_m822F9D62B01C51F8058CCFCD725D1DCC8EB14AE6(Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___0_source, Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___1_target, Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___2_velocity, float ___3_gravity, float ___4_maxAngle, float ___5_requiredSpeed, float ___6_maxSpeedPercent, float ___7_assistPercent, float ___8_epsilon, Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___9_adjustedVelocity);
 extern "C" void CDECL ReversePInvokeWrapper_XRGeneralGrabTransformer_AdjustPositionForPermittedAxesBurst_m6FD6A102EEFE6E10DB7E6DEF1079F2D6507382E4(Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___0_targetPosition, Pose_t06BA69EAA6E9FAF60056D519A87D25F54AFE7971* ___1_originalObjectPose, int32_t ___2_axisDisplacementMode, int32_t ___3_hasX, int32_t ___4_hasY, int32_t ___5_hasZ, Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___6_adjustedTargetPosition);
 extern "C" void CDECL ReversePInvokeWrapper_XRGeneralGrabTransformer_ComputeNewObjectPosition_m4FE008844D6AC858154D8E6CFA06EAD97884DA3A(float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___0_interactorPosition, quaternion_tD6BCBECAF088B9EBAE2345EC8534C7A1A4C910D4* ___1_interactorRotation, quaternion_tD6BCBECAF088B9EBAE2345EC8534C7A1A4C910D4* ___2_objectRotation, float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___3_objectScale, int32_t ___4_trackRotation, float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___5_offsetPosition, float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___6_objectLocalGrabPoint, float3_t4AB5D88249ADB24F69FFD0793E8ED25E1CC3745E* ___7_interactorLocalGrabPoint, Vector3_t24C512C7B96BBABAD472002D0BA2BDA40A5A80B2* ___8_newPosition);
@@ -249,8 +282,9 @@ extern "C" float CDECL ReversePInvokeWrapper_SquareDistanceAttachPointEvaluator_
 
 
 IL2CPP_EXTERN_C const Il2CppMethodPointer g_ReversePInvokeWrapperPointers[];
-const Il2CppMethodPointer g_ReversePInvokeWrapperPointers[102] = 
+const Il2CppMethodPointer g_ReversePInvokeWrapperPointers[104] = 
 {
+	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_ARCameraBackground_BeforeBackgroundRenderHandler_m3B215B54CFB6F6F00A724D9A6BE66808593ABFCD),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_AutoFreeAllocator_Try_m4FFF073754714947DFC8F4D7134E74CDC78C019C),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_AutoFreeAllocator_TryU24BurstManaged_mE86E6DC99C88B259454710D7CC1906F995968ECF),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_BurstLerpUtility_BezierLerp_m220183D42AD0C46098A917051EC1D5758BD73DB3),
@@ -321,6 +355,7 @@ const Il2CppMethodPointer g_ReversePInvokeWrapperPointers[102] =
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_SmartFollowVector3TweenableVariable_IsNewTargetWithinThreshold_m94D80518E663781B4263624CA2C27A68E0AF1F1C),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_X86_DoGetCSRTrampoline_mFFBFD9D1618E08CBB4E263D811ED0782B31FA299),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_X86_DoSetCSRTrampoline_mAD4DB2BFB00E514CED43990AD8CC823B3EBF666C),
+	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_XRCpuImage_OnAsyncConversionComplete_mDC3A0C88A34909C9D08E4BE7E94C8E27E2BB3D3C),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_XRGazeAssistance_GetAssistedVelocityInternal_m822F9D62B01C51F8058CCFCD725D1DCC8EB14AE6),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_XRGeneralGrabTransformer_AdjustPositionForPermittedAxesBurst_m6FD6A102EEFE6E10DB7E6DEF1079F2D6507382E4),
 	reinterpret_cast<Il2CppMethodPointer>(ReversePInvokeWrapper_XRGeneralGrabTransformer_ComputeNewObjectPosition_m4FE008844D6AC858154D8E6CFA06EAD97884DA3A),

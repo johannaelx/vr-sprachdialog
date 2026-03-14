@@ -2,6 +2,33 @@
   "report": {
     "modules": [
       {
+        "name": "AI",
+        "dependencies": [
+          {
+            "name": "NavMeshAgent",
+            "scenes": [],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "NavMeshProjectSettings",
+            "scenes": [],
+            "dependencyType": 1,
+            "icon": null
+          },
+          {
+            "name": "NavMeshSettings",
+            "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
+              "Assets/Scenes/MainMenu.unity"
+            ],
+            "dependencyType": 1,
+            "icon": null
+          }
+        ]
+      },
+      {
         "name": "AndroidJNI",
         "dependencies": []
       },
@@ -11,7 +38,8 @@
           {
             "name": "AnimationClip",
             "scenes": [
-              "Assets/Scenes/BakeryScene.unity"
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -19,7 +47,8 @@
           {
             "name": "Animator",
             "scenes": [
-              "Assets/Scenes/BakeryScene.unity"
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -27,7 +56,8 @@
           {
             "name": "AnimatorController",
             "scenes": [
-              "Assets/Scenes/BakeryScene.unity"
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
             ],
             "dependencyType": 1,
             "icon": null
@@ -41,7 +71,8 @@
           {
             "name": "Avatar",
             "scenes": [
-              "Assets/Scenes/BakeryScene.unity"
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -67,6 +98,7 @@
             "name": "AudioBehaviour",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -82,6 +114,7 @@
             "name": "AudioListener",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -101,7 +134,10 @@
           },
           {
             "name": "AudioSource",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
@@ -110,6 +146,12 @@
             "scenes": [],
             "dependencyType": 1,
             "icon": null
+          },
+          {
+            "name": "Required by UnityWebRequestAudio Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.unitywebrequestaudio"
           }
         ]
       },
@@ -132,6 +174,7 @@
             "name": "Camera",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -153,6 +196,7 @@
             "name": "Cubemap",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -174,6 +218,7 @@
             "name": "EditorExtension",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 1,
@@ -189,6 +234,7 @@
             "name": "GameObject",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -222,6 +268,7 @@
             "name": "LevelGameManager",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 1,
@@ -231,6 +278,7 @@
             "name": "Light",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -258,6 +306,7 @@
             "name": "LightmapSettings",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -266,6 +315,8 @@
           {
             "name": "LineRenderer",
             "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -281,6 +332,7 @@
             "name": "Material",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -290,6 +342,7 @@
             "name": "Mesh",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -299,6 +352,7 @@
             "name": "MeshFilter",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -308,6 +362,7 @@
             "name": "MeshRenderer",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -317,6 +372,7 @@
             "name": "MonoBehaviour",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -332,6 +388,7 @@
             "name": "MonoScript",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 1,
@@ -341,6 +398,7 @@
             "name": "NamedObject",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 1,
@@ -379,6 +437,7 @@
           {
             "name": "RectTransform",
             "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -394,6 +453,7 @@
             "name": "RenderSettings",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -427,6 +487,7 @@
             "name": "Shader",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -441,7 +502,8 @@
           {
             "name": "SkinnedMeshRenderer",
             "scenes": [
-              "Assets/Scenes/BakeryScene.unity"
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -527,6 +589,12 @@
             "icon": null
           },
           {
+            "name": "Required by AI Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.ai"
+          },
+          {
             "name": "Required by AndroidJNI Module",
             "scenes": [],
             "dependencyType": 2,
@@ -603,6 +671,12 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.jsonserialize"
+          },
+          {
+            "name": "Required by ParticleSystem Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.particlesystem"
           },
           {
             "name": "Required by Physics Module",
@@ -705,6 +779,12 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.unitywebrequest"
+          },
+          {
+            "name": "Required by UnityWebRequestAudio Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.unitywebrequestaudio"
           },
           {
             "name": "Required by VFX Module",
@@ -927,12 +1007,30 @@
         ]
       },
       {
+        "name": "ParticleSystem",
+        "dependencies": [
+          {
+            "name": "ParticleSystem",
+            "scenes": [],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "ParticleSystemRenderer",
+            "scenes": [],
+            "dependencyType": 0,
+            "icon": null
+          }
+        ]
+      },
+      {
         "name": "Physics",
         "dependencies": [
           {
             "name": "BoxCollider",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -949,7 +1047,8 @@
           {
             "name": "CharacterController",
             "scenes": [
-              "Assets/Scenes/BakeryScene.unity"
+              "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -964,6 +1063,7 @@
             "name": "MeshCollider",
             "scenes": [
               "Assets/Scenes/BakeryScene.unity",
+              "Assets/Scenes/Freundschaftstreff.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1011,9 +1111,27 @@
         "name": "Physics2D",
         "dependencies": [
           {
+            "name": "Collider2D",
+            "scenes": [],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "Joint2D",
+            "scenes": [],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
             "name": "Physics2DSettings",
             "scenes": [],
             "dependencyType": 1,
+            "icon": null
+          },
+          {
+            "name": "Rigidbody2D",
+            "scenes": [],
+            "dependencyType": 0,
             "icon": null
           }
         ]
@@ -1043,6 +1161,12 @@
       {
         "name": "SharedInternals",
         "dependencies": [
+          {
+            "name": "Required by AI Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.ai"
+          },
           {
             "name": "Required by AndroidJNI Module",
             "scenes": [],
@@ -1126,6 +1250,12 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.jsonserialize"
+          },
+          {
+            "name": "Required by ParticleSystem Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.particlesystem"
           },
           {
             "name": "Required by Physics Module",
@@ -1228,6 +1358,12 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.unitywebrequest"
+          },
+          {
+            "name": "Required by UnityWebRequestAudio Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.unitywebrequestaudio"
           },
           {
             "name": "Required by VFX Module",
@@ -1346,6 +1482,7 @@
           {
             "name": "Font",
             "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1395,6 +1532,7 @@
           {
             "name": "Canvas",
             "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1409,6 +1547,7 @@
           {
             "name": "CanvasRenderer",
             "scenes": [
+              "Assets/Scenes/BakeryScene.unity",
               "Assets/Scenes/MainMenu.unity"
             ],
             "dependencyType": 0,
@@ -1539,8 +1678,18 @@
             "scenes": [],
             "dependencyType": 2,
             "icon": "package/com.unity.modules.unityanalytics"
+          },
+          {
+            "name": "Required by UnityWebRequestAudio Module",
+            "scenes": [],
+            "dependencyType": 2,
+            "icon": "package/com.unity.modules.unitywebrequestaudio"
           }
         ]
+      },
+      {
+        "name": "UnityWebRequestAudio",
+        "dependencies": []
       },
       {
         "name": "VFX",
