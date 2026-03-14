@@ -77,6 +77,15 @@ extern void MainMenu_PlayBakeryScene_m78911F4FEAF38134B97A2A3B9BE876C7EFA7C8BB (
 extern void MainMenu_PlayFriendsScene_mA697F6013D60BA8574FBBDA631E401D85B675B94 (void);
 extern void MainMenu_QuitGame_mBF761274C14BD7341FE8C32A538D28343B63EDC4 (void);
 extern void MainMenu__ctor_m8209CEC1D907C87A96D777961F4D0536E6E948DD (void);
+extern void QuestMenuToggle_OnEnable_mCC04E3A9D736566A659F93C8E1A14907D4CBDF2B (void);
+extern void QuestMenuToggle_OnDisable_mA703B7A6E359E4D815929C00108CC114422E06B7 (void);
+extern void QuestMenuToggle_OnTogglePressed_m4221A1F94977D630768C3A064169C457CC7962D8 (void);
+extern void QuestMenuToggle__ctor_m07C5D711BB0042555BFAFF9763199C5D347BB1D4 (void);
+extern void QuestTracker_CompleteTask1_m9902A515E63DA63A9BFE747D217F18140D307D40 (void);
+extern void QuestTracker_CompleteTask2_m06EAFA3B191982083497313A04CC693493F76650 (void);
+extern void QuestTracker_CompleteTask3_m8C757DD06E8D306C6C04A2261298DBEB4D7F27D7 (void);
+extern void QuestTracker_CompleteTask4_m769754763C4CA784F4F39A752D1696B10597279D (void);
+extern void QuestTracker__ctor_mA1ECCE8DDF221448FC32BF33A586AB889DB0A336 (void);
 extern void SimpleFlyCamera_Start_mBB8CF96566F12806E13E273AA12C0A53086B2BCF (void);
 extern void SimpleFlyCamera_Update_m000A5A324AC12B330715096DA67BC5770FF4D61F (void);
 extern void SimpleFlyCamera__ctor_mE62FB77122227ECF1AE7F3E1D8F9F915CD992742 (void);
@@ -447,7 +456,7 @@ extern void ThirdPersonCamera_Move_m52FE47A8D2040E6DEE9989AA9A206F91FD12F23D (vo
 extern void ThirdPersonCamera__ctor_mBA730B9F7BBC6194E434BAE4FEAB06213DD33743 (void);
 extern void ThirdPersonCamera_U3CMoveU3Eg__cameraU7C6_0_mC276D51E2905F857C54C21F477FF36773825A4BB (void);
 extern void ThirdPersonCamera_U3CMoveU3Eg__targetU7C6_1_mEB8E1B2F9420B3D077D81EEB33DCFE31265C7ABF (void);
-static Il2CppMethodPointer s_methodPointers[441] = 
+static Il2CppMethodPointer s_methodPointers[450] = 
 {
 	AudioRecorder_StartRecording_mE336207D56F2977ACB0CCCEF8C1C83E92B6CAF0A,
 	AudioRecorder_StopRecording_m12FE50557E36B2374E75192F9DC9FDE36D0BE7CD,
@@ -520,6 +529,15 @@ static Il2CppMethodPointer s_methodPointers[441] =
 	MainMenu_PlayFriendsScene_mA697F6013D60BA8574FBBDA631E401D85B675B94,
 	MainMenu_QuitGame_mBF761274C14BD7341FE8C32A538D28343B63EDC4,
 	MainMenu__ctor_m8209CEC1D907C87A96D777961F4D0536E6E948DD,
+	QuestMenuToggle_OnEnable_mCC04E3A9D736566A659F93C8E1A14907D4CBDF2B,
+	QuestMenuToggle_OnDisable_mA703B7A6E359E4D815929C00108CC114422E06B7,
+	QuestMenuToggle_OnTogglePressed_m4221A1F94977D630768C3A064169C457CC7962D8,
+	QuestMenuToggle__ctor_m07C5D711BB0042555BFAFF9763199C5D347BB1D4,
+	QuestTracker_CompleteTask1_m9902A515E63DA63A9BFE747D217F18140D307D40,
+	QuestTracker_CompleteTask2_m06EAFA3B191982083497313A04CC693493F76650,
+	QuestTracker_CompleteTask3_m8C757DD06E8D306C6C04A2261298DBEB4D7F27D7,
+	QuestTracker_CompleteTask4_m769754763C4CA784F4F39A752D1696B10597279D,
+	QuestTracker__ctor_mA1ECCE8DDF221448FC32BF33A586AB889DB0A336,
 	SimpleFlyCamera_Start_mBB8CF96566F12806E13E273AA12C0A53086B2BCF,
 	SimpleFlyCamera_Update_m000A5A324AC12B330715096DA67BC5770FF4D61F,
 	SimpleFlyCamera__ctor_mE62FB77122227ECF1AE7F3E1D8F9F915CD992742,
@@ -894,9 +912,9 @@ static Il2CppMethodPointer s_methodPointers[441] =
 extern void LookWeight__ctor_m2AC19A0C24F27ABE5A406CF6B67FC06846D02426_AdjustorThunk (void);
 static Il2CppTokenAdjustorThunkPair s_adjustorThunks[1] = 
 {
-	{ 0x0600019A, LookWeight__ctor_m2AC19A0C24F27ABE5A406CF6B67FC06846D02426_AdjustorThunk },
+	{ 0x060001A3, LookWeight__ctor_m2AC19A0C24F27ABE5A406CF6B67FC06846D02426_AdjustorThunk },
 };
-static const int32_t s_InvokerIndices[441] = 
+static const int32_t s_InvokerIndices[450] = 
 {
 	16144,
 	4626,
@@ -963,6 +981,15 @@ static const int32_t s_InvokerIndices[441] =
 	16144,
 	-1,
 	16144,
+	16144,
+	16144,
+	16144,
+	16144,
+	16144,
+	16144,
+	16144,
+	16144,
+	12688,
 	16144,
 	16144,
 	16144,
@@ -1344,7 +1371,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	441,
+	450,
 	s_methodPointers,
 	1,
 	s_adjustorThunks,

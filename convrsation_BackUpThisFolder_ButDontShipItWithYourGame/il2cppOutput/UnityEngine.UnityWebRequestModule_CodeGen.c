@@ -14,6 +14,8 @@ extern void WebRequestUtils_URLDecode_m7105E58E9157A90FF279F54E4B9B68EFDD3EF140 
 extern void WebRequestUtils__cctor_m31ADEB75E00368144C8F223647D81A3B5ADD3D69 (void);
 extern void WWWForm_get_DefaultEncoding_mC56870DA395B6E753E8551AE82DAF128B2547000 (void);
 extern void WWWForm__ctor_mB1AA4D4BE7011A371B590332CC65794270F269F6 (void);
+extern void WWWForm_AddField_m6315BDFDEA6F0F57ABCBCF4B1AE482E1893BEB8D (void);
+extern void WWWForm_AddField_m5309EB3D9652AF0CFBEBFB42324E6AF0BCFB350E (void);
 extern void WWWForm_AddBinaryData_m47F69B41BEF235B6C7D8643630251E134BFF167C (void);
 extern void WWWForm_get_headers_mF6508B8C984B76EF984495FF01BA7185CFD0C63E (void);
 extern void WWWForm_get_data_mE064CFB866D49D1E49FA9E0811CE71D039BB0145 (void);
@@ -135,7 +137,7 @@ extern void UploadHandlerRaw_Create_m47BC9C3516DF02A1B09B7611D01BEED2B9E74075 (v
 extern void UploadHandlerRaw__ctor_m168C957B67E29CB3072E3542044D37E2F16C42B7 (void);
 extern void UploadHandlerRaw__ctor_mF9F2BAB1D9987051714541669B3D22EC9DBDCFEF (void);
 extern void UploadHandlerRaw_Dispose_m7BC523C04CD5582382B23AF4FC019149DE328A1B (void);
-static Il2CppMethodPointer s_methodPointers[128] = 
+static Il2CppMethodPointer s_methodPointers[130] = 
 {
 	WebRequestUtils_RedirectTo_m63855E63B6B6EAFD4BCE65395BB744AAF5BD6AB4,
 	WebRequestUtils_MakeInitialUrl_m30A37413A904FEB4E4E45607E929B4E90ECE044C,
@@ -144,6 +146,8 @@ static Il2CppMethodPointer s_methodPointers[128] =
 	WebRequestUtils__cctor_m31ADEB75E00368144C8F223647D81A3B5ADD3D69,
 	WWWForm_get_DefaultEncoding_mC56870DA395B6E753E8551AE82DAF128B2547000,
 	WWWForm__ctor_mB1AA4D4BE7011A371B590332CC65794270F269F6,
+	WWWForm_AddField_m6315BDFDEA6F0F57ABCBCF4B1AE482E1893BEB8D,
+	WWWForm_AddField_m5309EB3D9652AF0CFBEBFB42324E6AF0BCFB350E,
 	WWWForm_AddBinaryData_m47F69B41BEF235B6C7D8643630251E134BFF167C,
 	WWWForm_get_headers_mF6508B8C984B76EF984495FF01BA7185CFD0C63E,
 	WWWForm_get_data_mE064CFB866D49D1E49FA9E0811CE71D039BB0145,
@@ -266,7 +270,7 @@ static Il2CppMethodPointer s_methodPointers[128] =
 	UploadHandlerRaw__ctor_mF9F2BAB1D9987051714541669B3D22EC9DBDCFEF,
 	UploadHandlerRaw_Dispose_m7BC523C04CD5582382B23AF4FC019149DE328A1B,
 };
-static const int32_t s_InvokerIndices[128] = 
+static const int32_t s_InvokerIndices[130] = 
 {
 	22407,
 	22407,
@@ -275,6 +279,8 @@ static const int32_t s_InvokerIndices[128] =
 	27490,
 	27398,
 	16144,
+	6286,
+	2738,
 	1943,
 	15945,
 	15945,
@@ -401,7 +407,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_UnityWebRequestModule_Co
 const Il2CppCodeGenModule g_UnityEngine_UnityWebRequestModule_CodeGenModule = 
 {
 	"UnityEngine.UnityWebRequestModule.dll",
-	128,
+	130,
 	s_methodPointers,
 	0,
 	NULL,

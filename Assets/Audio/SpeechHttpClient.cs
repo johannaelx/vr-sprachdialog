@@ -44,6 +44,11 @@ public class SpeechHttpClient : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddBinaryData("audio", wavData, "speech.wav", "audio/wav");
 
+        string sceneName = UnityEngine.SceneManagement.SceneManager
+        .GetActiveScene().name;
+
+        form.AddField("scene", sceneName);
+        
         using UnityWebRequest request = UnityWebRequest.Post(endpoint, form);
 
         request.downloadHandler = new DownloadHandlerBuffer();
