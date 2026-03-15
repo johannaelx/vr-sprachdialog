@@ -3,29 +3,41 @@ using UnityEngine.UI;
 
 public class QuestTracker : MonoBehaviour
 {
-    public Toggle task1;
-    public Toggle task2;
-    public Toggle task3;
-    public Toggle task4;
+    public Toggle[] questToggles;
+    public AudioSource audioSource;
+    public AudioClip successClip;
 
-    public void CompleteTask1()
+    public GameObject questPanel;
+    public GameObject successMessage;
+
+    public BakerAnimations bakerAnimations;    
+
+    private bool successPlayed = false;
+
+    public void CheckAllTasks()
     {
-        task1.isOn = true;
-    }
+        foreach (Toggle toggle in questToggles)
+        {
+            if (!toggle.isOn)
+                return;
+        }
 
-    public void CompleteTask2()
-    {
-        task2.isOn = true;
-    }
+        if (!successPlayed)
+        {
+            successPlayed = true;
 
-    public void CompleteTask3()
-    {
-        task3.isOn = true;
-    }
+            if (audioSource != null && successClip != null)
+                audioSource.PlayOneShot(successClip);
 
-    public void CompleteTask4()
-    {
-        task4.isOn = true;
-    }
+            if (questPanel != null)
+                questPanel.SetActive(false);
 
+            if (successMessage != null)
+                successMessage.SetActive(true);
+
+            
+            if (bakerAnimations != null)
+                bakerAnimations.DanceTimes(5);
+        }
+    }
 }

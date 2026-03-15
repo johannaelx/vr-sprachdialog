@@ -3478,6 +3478,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleVocabularyHelp",
+                    "type": "Button",
+                    "id": "3106a97d-a8d5-4419-81e3-c47544ba5832",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -3489,6 +3498,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8111c72-2d26-421b-8c0c-3132fcf30732",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleVocabularyHelp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

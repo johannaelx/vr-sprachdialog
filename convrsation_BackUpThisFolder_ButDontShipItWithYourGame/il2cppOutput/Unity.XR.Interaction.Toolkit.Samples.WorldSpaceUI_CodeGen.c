@@ -26,13 +26,13 @@ static Il2CppMethodPointer s_methodPointers[7] =
 };
 static const int32_t s_InvokerIndices[7] = 
 {
-	27564,
-	16144,
-	15945,
-	12319,
-	16144,
-	16144,
-	16144,
+	27565,
+	16145,
+	15946,
+	12320,
+	16145,
+	16145,
+	16145,
 };
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_Unity_XR_Interaction_Toolkit_Samples_WorldSpaceUI_CodeGenModule;
 const Il2CppCodeGenModule g_Unity_XR_Interaction_Toolkit_Samples_WorldSpaceUI_CodeGenModule = 

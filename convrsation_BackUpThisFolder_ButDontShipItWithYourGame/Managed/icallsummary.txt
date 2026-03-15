@@ -313,6 +313,7 @@ UnityEngine.Animator::IsInIKPass_Injected
 UnityEngine.Animator::get_hasBoundPlayables_Injected
 UnityEngine.Animator::get_logWarnings_Injected
 UnityEngine.Animator::StringToHash_Injected
+UnityEngine.Animator::GetAnimatorStateInfo_Injected
 UnityEngine.Animator::Play_Injected
 UnityEngine.Animator::ResetTriggerString_Injected
 UnityEngine.Animator::SetBoolString_Injected
