@@ -1,10 +1,14 @@
 import os
 import json
 from typing import Dict
+from pathlib import Path
 from openai import OpenAI
 from collections import deque
 
-# OpenAI model used for conversational responses
+from dotenv import load_dotenv
+load_dotenv()
+
+# OpenAI chat model used for generating NPC responses
 API_MODEL_NAME = "gpt-4o-mini"
 
 # API key is read from the environment
@@ -16,51 +20,47 @@ if not OPENAI_API_KEY:
 # OpenAI client instance
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+# short-term dialogue memory
 NPC_MEMORY = deque(maxlen=6)
 
-def baker_npc_api(user_text: str) -> str:
+# directory containing prompt files
+PROMPT_DIR = Path(__file__).parent / "prompts"
+
+# prompt cache to avoid disk reads every request
+PROMPT_CACHE = {}
+
+
+def load_prompt(npc_type: str) -> str:
     """
-    Sends the user's utterance to the LLM and returns a JSON-formatted response as text.
+    Loads the system prompt for the given NPC type.
 
-    The model acts as an in-world baker NPC in a VR language learning game.
-    It responds naturally in character and subtly corrects language mistakes
-    inside the reply without explicit explanations.
+    Prompts are cached after the first load to avoid repeated disk access.
+    If the requested NPC type does not exist, the default prompt is used.
     """
-    system_prompt = """
-    You are an in-world NPC in a VR game.
 
-    Role:
-    You are a baker who works in a small bakery.
-    You speak as a real person inside the game world, not as an AI.
+    prompt_file = PROMPT_DIR / f"{npc_type}.txt"
 
-    Behavior:
-    Respond naturally and concisely, as a baker would.
-    Keep responses short (1–3 sentences).
-    Stay in character at all times.
-    You remember the recent conversation with the player and use it naturally.
+    if not prompt_file.exists():
+        npc_type = "default"
+        prompt_file = PROMPT_DIR / "default.txt"
 
-    Language rule:
-    Before responding, determine whether the player's input is written in English.
+    if npc_type in PROMPT_CACHE:
+        return PROMPT_CACHE[npc_type]
 
-    If the input is NOT English:
-    - Do NOT respond to the content.
-    - Do NOT translate it.
-    - Politely ask the player to repeat their sentence in English.
-    - Stay in character as a baker.
+    with open(prompt_file, "r", encoding="utf-8") as f:
+        prompt = f.read()
 
-    If the input IS English:
-    - Respond naturally to the content.
-    - If there is a small language mistake, correct it subtly inside the reply.
-    - Do NOT explain grammar.
-    - Do NOT sound like a teacher.
+    PROMPT_CACHE[npc_type] = prompt
+    return prompt
 
-    Output format:
-    Respond strictly in JSON.
-    JSON schema:
-    {
-    "reply": "the baker's spoken reply"
-    }
+
+def npc_api(user_text: str, npc_type: str) -> str:
     """
+    Sends the user's utterance to the LLM and returns a JSON-formatted response.
+    The NPC personality is determined by npc_type.
+    """
+
+    system_prompt = load_prompt(npc_type)
 
     user_prompt = f"""
     Player said:
@@ -68,15 +68,14 @@ def baker_npc_api(user_text: str) -> str:
 
     Respond in JSON only.
     """
-    # Build messages with memory
+
     messages = [
         {"role": "system", "content": system_prompt},
     ]
 
-    # add recent dialogue turns to maintain short-term context
+    # add recent dialogue turns
     messages.extend(NPC_MEMORY)
 
-    # add current user message
     messages.append(
         {"role": "user", "content": user_prompt}
     )
@@ -87,18 +86,16 @@ def baker_npc_api(user_text: str) -> str:
         temperature=0.6,
     )
 
-    # the API always returns text; JSON parsing is handled by the wrapper function
     return response.choices[0].message.content
 
 
-def baker_npc(user_text: str) -> Dict:
+def npc_chat(user_text: str, npc_type: str) -> Dict:
     """
-    High-level wrapper for the NPC used in the speech pipeline.
+    High-level wrapper used by the backend conversation pipeline.
+    Parses the JSON reply from the LLM.
+    """
 
-    This function calls the LLM API and parses the returned JSON string into
-    a Python dictionary. If parsing fails, a fallback response is returned.
-    """
-    raw_response = baker_npc_api(user_text)
+    raw_response = npc_api(user_text, npc_type)
 
     try:
         parsed = json.loads(raw_response)
@@ -107,12 +104,16 @@ def baker_npc(user_text: str) -> Dict:
         reply_text = raw_response
         parsed = {"reply": reply_text}
 
-    # update NPC memory
+    # update memory
     NPC_MEMORY.append({"role": "user", "content": user_text})
     NPC_MEMORY.append({"role": "assistant", "content": reply_text})
 
     return parsed
 
-# TODO use this method to clear the NPC's memory after the level
+
 def reset_npc_memory():
+    """
+    Clears conversation memory.
+    Should be called when a new scene starts.
+    """
     NPC_MEMORY.clear()

@@ -24719,6 +24719,8 @@ struct SessionStateChangedEventUnit_tB622F7C1B352062C2D5D67A3EA1E1E6DBD910631  :
 struct SetXRStartPosition_t2FA8CED843ACE1CB24592F225E09CCCC3BEEDA67  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
 	Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* ___startPoint;
+	XROrigin_t5E534A6D886991AF3C1C64127E19A3A510009CFE* ___xrOrigin;
+	Camera_tA92CC927D7439999BC82DBEDC0AA45B470F9E184* ___xrCamera;
 };
 struct ShaderPropAnimator_t768B23A41FC3CFB5B3C2501C2411B4DEBA296906  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -32795,9 +32797,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable10666[4] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable10667[7] = 
 {
 	static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___questToggles)),static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___audioSource)),static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___successClip)),static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___questPanel)),static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___successMessage)),static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___bakerAnimations)),static_cast<int32_t>(offsetof(QuestTracker_tB56A9D2722C2641015F3D4F47789BA2446E4C2E3, ___successPlayed)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable10668[1] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable10668[3] = 
 {
-	static_cast<int32_t>(offsetof(SetXRStartPosition_t2FA8CED843ACE1CB24592F225E09CCCC3BEEDA67, ___startPoint)),};
+	static_cast<int32_t>(offsetof(SetXRStartPosition_t2FA8CED843ACE1CB24592F225E09CCCC3BEEDA67, ___startPoint)),static_cast<int32_t>(offsetof(SetXRStartPosition_t2FA8CED843ACE1CB24592F225E09CCCC3BEEDA67, ___xrOrigin)),static_cast<int32_t>(offsetof(SetXRStartPosition_t2FA8CED843ACE1CB24592F225E09CCCC3BEEDA67, ___xrCamera)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable10669[4] = 
 {
 	static_cast<int32_t>(offsetof(SimpleFlyCamera_t4CC1FF18851F2BDCDCF4770EFBAF9295081314F2, ___moveSpeed)),static_cast<int32_t>(offsetof(SimpleFlyCamera_t4CC1FF18851F2BDCDCF4770EFBAF9295081314F2, ___lookSensitivity)),static_cast<int32_t>(offsetof(SimpleFlyCamera_t4CC1FF18851F2BDCDCF4770EFBAF9295081314F2, ___yaw)),static_cast<int32_t>(offsetof(SimpleFlyCamera_t4CC1FF18851F2BDCDCF4770EFBAF9295081314F2, ___pitch)),};
